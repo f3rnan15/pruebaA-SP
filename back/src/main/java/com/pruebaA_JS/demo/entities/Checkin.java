@@ -2,12 +2,7 @@ package com.pruebaA_JS.demo.entities;
 
 import java.sql.Date;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 
@@ -18,20 +13,20 @@ public class Checkin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_checkin;
-    @OneToMany
+    private Long check_id;
+    @ManyToOne
     @JoinColumn(name = "id_user")
-    private int id_user;
-    private Date date;
-    private boolean working;
+    private Users user;
+    private Date timestamp;
+    private boolean is_inside;
 
     public Checkin(){}
 
-    public Checkin(int id_checkin, int id_user, Date date, boolean working){
-        this.id_checkin = id_checkin;
-        this.id_user = id_user;
-        this.date = date;
-        this.working = working;
+    public Checkin(Long id_checkin, Users user, Date date, boolean working){
+        this.check_id = id_checkin;
+        this.user = user;
+        this.timestamp = date;
+        this.is_inside = working;
     }
 
     

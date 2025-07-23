@@ -2,6 +2,7 @@ package com.pruebaA_JS.demo.repository;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -10,11 +11,14 @@ import com.pruebaA_JS.demo.entities.Checkin;
 
 @Repository
 public interface CheckinRepository extends JpaRepository<Checkin, Long> {
-	Checkin findById(int id_checkin);
-	
+	Optional<Checkin> findById(Long check_id);
+
+	/*
     List<Checkin> findByDate(Date date);
 
     List<Checkin> findByUser(int id_user);
 
-    List<Checkin> findOnWorking();
+    List<Checkin> findByWorking();
+    */
+
 }
