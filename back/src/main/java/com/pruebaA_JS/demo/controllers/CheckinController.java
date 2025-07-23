@@ -19,7 +19,7 @@ public class CheckinController {
 		this.checkinService = checkinService;
 	}
 	
-	public Checkin findCheckinById(@ModelAttribute int id){
+	public Checkin findCheckinById(@ModelAttribute Long id){
 		return checkinService.findById(id);
 	}
 }

@@ -18,7 +18,7 @@ public class CheckinServices {
 	@Autowired
 	private CheckinRepository checkinRepository;
 	
-	public Checkin findById(int id){
+	public Checkin findById(Long check_id){
 		return new Checkin();
 	}
 }
