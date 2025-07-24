@@ -19,16 +19,13 @@ public class Schedules {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long scheduleId; // Cambiado a Long para que funcione bien con GenerationType.IDENTITY
 
-    private String descriptiion;
+    private String description;
 
+    private DateFormat startDate;
 
-    private LocalDate startDate;
+    private DateFormat endDate;
 
-
-    private LocalDate endDate;
-
-
-    private Double dailyHours;
+    private DecimalFormat dailyHours;
 
     private Boolean enabled;
 

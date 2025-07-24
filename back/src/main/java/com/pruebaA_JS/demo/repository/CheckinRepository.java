@@ -12,16 +12,9 @@ import com.pruebaA_JS.demo.entities.Checkin;
 
 @Repository
 public interface CheckinRepository extends JpaRepository<Checkin, Long> {
-	Optional<Checkin> findById(Long check_id);
+
+	Optional<Checkin> findById(Long checkId);
 
 	Optional<Checkin> findTopByUserOrderByTimestampDesc(Users user);
-
-	/*
-    List<Checkin> findByDate(Date date);
-
-    List<Checkin> findByUser(int id_user);
-
-    List<Checkin> findByWorking();
-    */
 
 }

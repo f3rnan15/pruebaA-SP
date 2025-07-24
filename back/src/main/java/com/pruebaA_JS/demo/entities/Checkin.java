@@ -18,12 +18,11 @@ public class Checkin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long checkId;
     @ManyToOne
-    @JoinColumn(name = "user_id")
+
+    @JoinColumn(name = "userId")
     private Users user;
-    private LocalDateTime timestamp;
-    private boolean inside;
-
-
+    private Date timestamp;
+    private boolean isInside;
 
     
 }

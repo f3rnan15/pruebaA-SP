@@ -3,10 +3,8 @@ package com.pruebaA_JS.demo.controllers;
 import com.pruebaA_JS.demo.entities.Users;
 import com.pruebaA_JS.demo.services.UsersService;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -31,6 +29,9 @@ public class UsersController {
         return "Usuario logueado: " + email;
     }
 
-
-
+    @GetMapping()
+    public Users getUser(@RequestParam Long userId) {
+        return usersService.getUser(userId)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    }
 }
