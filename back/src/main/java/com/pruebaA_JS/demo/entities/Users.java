@@ -1,11 +1,9 @@
 package com.pruebaA_JS.demo.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -17,10 +15,13 @@ import java.util.Objects;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
-    private String first_name;
-    private String last_name;
+    @Column(name = "user_id")
+    private Long userId;
+    private String firstName;
+    private String lastName;
     private String email;
-    private String user_password;
+    private String userPassword;
 
+    @OneToMany(mappedBy = "user")
+    private Collection<Checkin> checkins;
 }

@@ -13,20 +13,20 @@ public class Checkin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long check_id;
+    private Long checkId;
     @ManyToOne
-    @JoinColumn(name = "id_user")
+    @JoinColumn(name = "userId")
     private Users user;
     private Date timestamp;
-    private boolean is_inside;
+    private boolean isInside;
 
     public Checkin(){}
 
     public Checkin(Long id_checkin, Users user, Date date, boolean working){
-        this.check_id = id_checkin;
+        this.checkId = id_checkin;
         this.user = user;
         this.timestamp = date;
-        this.is_inside = working;
+        this.isInside = working;
     }
 
     

@@ -17,15 +17,15 @@ import java.text.DecimalFormat;
 @AllArgsConstructor
 public class Schedules {
     @Id
-    private Long id_shedule; // Cambiado a Long para que funcione bien con GenerationType.IDENTITY
+    private Long idSchedule; // Cambiado a Long para que funcione bien con GenerationType.IDENTITY
 
-    private String descriptiion;
+    private String description;
 
-    private DateFormat start_date;
+    private DateFormat startDate;
 
-    private DateFormat end_date;
+    private DateFormat endDate;
 
-    private DecimalFormat daily_hours;
+    private DecimalFormat dailyHours;
 
     private Boolean enabled;
 
