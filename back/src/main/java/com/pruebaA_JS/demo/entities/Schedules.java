@@ -21,11 +21,11 @@ public class Schedules {
 
     private String description;
 
-    private DateFormat startDate;
+    private LocalDate startDate;
 
-    private DateFormat endDate;
+    private LocalDate endDate;
 
-    private DecimalFormat dailyHours;
+    private Double dailyHours;
 
     private Boolean enabled;
 

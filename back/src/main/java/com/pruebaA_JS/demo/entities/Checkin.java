@@ -21,7 +21,7 @@ public class Checkin {
 
     @JoinColumn(name = "userId")
     private Users user;
-    private Date timestamp;
+    private LocalDateTime timestamp;
     private boolean isInside;
 
     
