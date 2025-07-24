@@ -12,6 +12,7 @@ public class UsersService {
     private  UsersRepository usersRepository;
 
     public void addUser(Users user){
+
         usersRepository.save(user);
     }
 

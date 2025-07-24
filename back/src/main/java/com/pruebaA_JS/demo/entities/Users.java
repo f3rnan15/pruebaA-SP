@@ -1,9 +1,6 @@
 package com.pruebaA_JS.demo.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Objects;
@@ -18,7 +15,10 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long user_id;
-    private String first_name;
+
+    @Column(name = "first_name") // Esto mapea a la columna SQL
+    private String firstName;    // Este es el nombre del atributo en Java
+
     private String last_name;
     private String email;
     private String user_password;
