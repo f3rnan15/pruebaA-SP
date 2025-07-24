@@ -21,4 +21,6 @@ public class SchedulesController {
     public List<Schedules> findAll(){
         return repository.findAll();
     }
+
+
 }

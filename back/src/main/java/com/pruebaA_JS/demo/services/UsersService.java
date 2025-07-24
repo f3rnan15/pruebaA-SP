@@ -12,7 +12,6 @@ public class UsersService {
     @Autowired
     private  UsersRepository usersRepository;
 
-
     public void addUser(Users user){usersRepository.save(user);}
 
     public Optional<Users> getUser(Long userId) {
