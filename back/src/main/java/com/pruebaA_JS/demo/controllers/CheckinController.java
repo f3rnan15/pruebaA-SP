@@ -24,10 +24,9 @@ public class CheckinController {
 
 
 	@PostMapping
-	public ResponseEntity<Checkin> createCheckin(@RequestBody Checkin chekin,
-												 Authentication authentication) throws Exception {
+	public ResponseEntity<Checkin> createCheckin() throws Exception {
 		String username = "string";
-		Checkin checkin = checkinService.createCheckin(chekin.is_inside(), username);
+		Checkin checkin = checkinService.createCheckin(username);
 		return ResponseEntity.ok(checkin);
 	}
 

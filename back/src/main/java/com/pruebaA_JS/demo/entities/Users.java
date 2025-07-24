@@ -14,13 +14,14 @@ import java.util.Objects;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+    private Long userId;
 
     @Column(name = "first_name") // Esto mapea a la columna SQL
     private String firstName;    // Este es el nombre del atributo en Java
 
-    private String last_name;
+    @Column(name = "last_name")
+    private String lastName;
     private String email;
-    private String user_password;
+    private String userPassword;
 
 }

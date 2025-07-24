@@ -1,6 +1,7 @@
 package com.pruebaA_JS.demo.services;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +30,7 @@ public class CheckinServices {
 		return new Checkin();
 	}
 
-	public Checkin createCheckin(Boolean isInside, String username) throws Exception {
+	public Checkin createCheckin(String username) throws Exception {
 		Users user = userRepository.findByFirstName(username)
 				.orElseThrow(() -> new Exception("Usuario no encontrado"));
 
@@ -40,13 +41,13 @@ public class CheckinServices {
 
 
 		if (lastCheckinOpt.isPresent()) {
-			newIsInside = !lastCheckinOpt.get().is_inside(); // Invertir el valor anterior
+			newIsInside = !lastCheckinOpt.get().isInside(); // Invertir el valor anterior
 		}
-
 
 		Checkin checkin = new Checkin();
 		checkin.setUser(user);
-		checkin.set_inside(newIsInside);
+		checkin.setInside(newIsInside);
+		checkin.setTimestamp(LocalDateTime.now());
 
 		return checkinRepository.save(checkin);
 	}

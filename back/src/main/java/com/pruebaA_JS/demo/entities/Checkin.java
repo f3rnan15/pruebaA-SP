@@ -1,33 +1,29 @@
 package com.pruebaA_JS.demo.entities;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 @Entity
 @Builder
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Checkin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long check_id;
+    private Long checkId;
     @ManyToOne
-    @JoinColumn(name = "id_user")
+    @JoinColumn(name = "user_id")
     private Users user;
-    private Date timestamp;
-    private boolean is_inside;
+    private LocalDateTime timestamp;
+    private boolean inside;
 
-    public Checkin(){}
 
-    public Checkin(Long id_checkin, Users user, Date date, boolean working){
-        this.check_id = id_checkin;
-        this.user = user;
-        this.timestamp = date;
-        this.is_inside = working;
-    }
 
     
 }
