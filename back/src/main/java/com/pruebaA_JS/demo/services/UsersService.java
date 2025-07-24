@@ -7,12 +7,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UsersService {
+
     @Autowired
     private  UsersRepository usersRepository;
-
 
     public void addUser(Users user){
 
         usersRepository.save(user);
     }
+
 }
