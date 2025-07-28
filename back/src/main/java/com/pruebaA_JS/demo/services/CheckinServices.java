@@ -57,6 +57,16 @@ public class CheckinServices {
 		return checkinRepository.findByTimestampBetween(startOfDay, endOfDay);
 	}
 
+	public Optional<Checkin> updateCheckin(Long id, Checkin updatedCheckin) {
+		return checkinRepository.findById(id).map(existing -> {
+			existing.setTimestamp(updatedCheckin.getTimestamp());
+			existing.setInside(updatedCheckin.isInside());
+			return checkinRepository.save(existing);
+		});
+	}
+
+
+
 
 
 
