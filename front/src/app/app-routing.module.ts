@@ -7,9 +7,18 @@ import { HorarioComponent } from './horario/horario.component';
 import { FichajeComponent } from './fichaje/fichaje.component';
 
 const routes: Routes = [
-  {path: 'login', component:LoginComponent},
-  {path: 'lateral', component:LateralComponent},
-  {path: '', component:FichajeComponent}
+  { path: 'login', component: LoginComponent },
+  {
+    path: 'lateral', component: LateralComponent,
+    children: [
+      { path: 'jornada', component: JornadaComponent },
+      { path: 'horario', component: HorarioComponent },
+      { path: 'fichaje', component: FichajeComponent },
+      { path: '', redirectTo: 'jornada', pathMatch: 'full' }
+    ]
+  },
+  { path: '**', redirectTo: 'login' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({
