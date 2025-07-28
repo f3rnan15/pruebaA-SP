@@ -3,15 +3,20 @@
         <h1>Mi jornada</h1>
         <div class="actions">
             <button class="btn-action add-incident">Añadir incidencia *</button>
-            <button class="btn-action clock-out">Fichar salida</button>
+            <span *ngIf="trabajando">
+                <button class="btn-action clock-out" (click)="ficharSalida()">Fichar salida</button>
+            </span>
+            <span *ngIf="!trabajando">
+                <button class="btn-action clock-out" (click)="ficharEntrada()">Fichar entrada</button>
+            </span>
         </div>
     </header>
 
     <div class="prinp">
 
         <div class="date">
-            <span class="date-text">jueves 24 jul.</span>
-            <span class="total-time">5h 14min</span>
+            <p class="date-text">jueves 24 jul.</p>
+            <p class="total-time">5h 14min</p>
         </div>
 
         <table class="schedule-table">
@@ -26,21 +31,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>7:50</td>
-                    <td>Oficina</td>
-                    <td>12:46</td>
-                    <td>Oficina</td>
-                    <td>—</td>
-                    <td><button class="">✏️</button></td>
-                </tr>
-                <tr>
-                    <td>12:46</td>
-                    <td>Oficina</td>
-                    <td>12:46</td>
-                    <td>Oficina</td>
-                    <td>—</td>
-                    <td><button class="">✏️</button></td>
+                <tr *ngFor="let fichaje of fichajes">
+                    <td>{{ fichaje.entrada }}</td>
+                    <td>{{ fichaje.lugarEntrada }}</td>
+                    <td>{{ fichaje.salida || '—' }}</td>
+                    <td>{{ fichaje.lugarSalida || '—' }}</td>
+                    <td>{{ fichaje.ausencia }}</td>
+                    <td><button>✏️</button></td>
                 </tr>
             </tbody>
         </table>
