@@ -1,1 +1,28 @@
-<p>login works!</p>
+<div class="login-container">
+  <h2>Iniciar Sesión</h2>
+  <form>
+    <div class="form-group">
+      <label for="email">Correo electrónico</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        ngModel
+        placeholder="tucorreo@ejemplo.com"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Contraseña</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        ngModel
+        placeholder="••••••••"
+      />
+    </div>
+
+    <button type="submit" (click)="entrada()">Entrar</button>
+  </form>
+</div>

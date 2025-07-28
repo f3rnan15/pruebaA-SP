@@ -1,0 +1,28 @@
+<div class="main-container">
+  <div class="sidebar" [class.collapsed]="isCollapsed">
+    <div class="toggle-btn" (click)="toggleSidebar()">☰</div>
+    <nav class="menu">
+      <a (click)="setSection('jornada')" [class.active]="activeSection === 'jornada'">
+        <i class="fas fa-calendar-day"></i>
+        <span *ngIf="!isCollapsed">Jornada</span>
+      </a>
+      <a (click)="setSection('horario')" [class.active]="activeSection === 'horario'">
+        <i class="fas fa-clock"></i>
+        <span *ngIf="!isCollapsed">Horario</span>
+      </a>
+      <a (click)="setSection('fichaje')" [class.active]="activeSection === 'fichaje'">
+        <i class="fas fa-fingerprint"></i>
+        <span *ngIf="!isCollapsed">Fichaje</span>
+      </a>
+    </nav>
+  </div>
+
+  <section class="content">
+    <app-jornada *ngIf="activeSection === 'jornada'"></app-jornada>
+    <app-horario *ngIf="activeSection === 'horario'"></app-horario>
+    <app-fichaje *ngIf="activeSection === 'fichaje'"></app-fichaje>
+  </section>
+</div>
+
+
+
