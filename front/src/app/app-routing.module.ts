@@ -7,12 +7,9 @@ import { HorarioComponent } from './horario/horario.component';
 import { FichajeComponent } from './fichaje/fichaje.component';
 
 const routes: Routes = [
-  {path: '/login', component:LoginComponent},
-  {path: '/lateral', component:LateralComponent},
-  {path: '/jornada', component:JornadaComponent},
-  {path: '/horario', component:HorarioComponent},
-  {path: '/fichaje', component:FichajeComponent},
-  {path: '', pathMatch:'full', redirectTo:'login'}
+  {path: 'login', component:LoginComponent},
+  {path: 'lateral', component:LateralComponent},
+  {path: '', component:FichajeComponent}
 ];
 
 @NgModule({
