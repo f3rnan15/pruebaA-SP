@@ -7,4 +7,16 @@ import { Component } from '@angular/core';
 })
 export class LateralComponent {
 
+  isCollapsed = false;
+
+  activeSection: 'jornada' | 'horario' | 'fichaje' = 'jornada';
+
+  setSection(section: 'jornada' | 'horario' | 'fichaje') {
+    this.activeSection = section;
+  }
+
+  toggleSidebar() {
+    this.isCollapsed = !this.isCollapsed;
+  }
+
 }
