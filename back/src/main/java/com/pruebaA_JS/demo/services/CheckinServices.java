@@ -1,7 +1,9 @@
 package com.pruebaA_JS.demo.services;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,13 +27,10 @@ public class CheckinServices {
 	@Autowired
 	private UsersRepository userRepository;
 
-	
-	public Checkin findById(Long check_id){
-		return new Checkin();
-	}
+
 
 	public Checkin createCheckin(String username) throws Exception {
-		Users user = userRepository.findByFirstName(username)
+		Users user = userRepository.findByEmail(username)
 				.orElseThrow(() -> new Exception("Usuario no encontrado"));
 
 
@@ -51,6 +50,14 @@ public class CheckinServices {
 
 		return checkinRepository.save(checkin);
 	}
+
+	public List<Checkin> getCheckinsByDate(LocalDate date) {
+		LocalDateTime startOfDay = date.atStartOfDay();
+		LocalDateTime endOfDay = date.atTime(LocalTime.MAX);
+		return checkinRepository.findByTimestampBetween(startOfDay, endOfDay);
+	}
+
+
 
 
 }
