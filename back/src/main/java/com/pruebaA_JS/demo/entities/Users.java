@@ -1,5 +1,6 @@
 package com.pruebaA_JS.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,6 +26,8 @@ public class Users {
     private String email;
     private String userPassword;
 
-    @OneToMany(mappedBy = "user")
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Collection<Checkin> checkins;
 }

@@ -15,7 +15,7 @@ public class UsersController {
     @Autowired
     private UsersService usersService;
 
-    @PostMapping()
+    @PostMapping("/new")
     public void registerUser(@ModelAttribute Users user) {
         try{
             usersService.addUser(user);
@@ -28,7 +28,7 @@ public class UsersController {
     public String getLoggedUserEmail() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
-        return "Usuario logueado: " + email;
+        return email;
     }
 
     @GetMapping()

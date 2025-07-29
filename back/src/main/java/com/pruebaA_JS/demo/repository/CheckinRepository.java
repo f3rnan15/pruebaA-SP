@@ -1,6 +1,7 @@
 package com.pruebaA_JS.demo.repository;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,4 +18,5 @@ public interface CheckinRepository extends JpaRepository<Checkin, Long> {
 
 	Optional<Checkin> findTopByUserOrderByTimestampDesc(Users user);
 
+	List<Checkin> findByTimestampBetween(LocalDateTime startOfDay, LocalDateTime endOfDay);
 }
