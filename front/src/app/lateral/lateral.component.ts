@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-lateral',
@@ -8,14 +9,15 @@ import { Component } from '@angular/core';
 export class LateralComponent {
 
   isCollapsed = false;
-
   activeSection: 'jornada' | 'horario' | 'fichaje' = 'jornada';
 
-  setSection(section: 'jornada' | 'horario' | 'fichaje') {
+  constructor(private authService: AuthService) {}
+
+  setSection(section: 'jornada' | 'horario' | 'fichaje'){
     this.activeSection = section;
   }
 
-  toggleSidebar() {
+  toggleSidebar(){
     this.isCollapsed = !this.isCollapsed;
   }
 

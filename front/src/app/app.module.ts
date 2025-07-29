@@ -8,6 +8,8 @@ import { LateralComponent } from './lateral/lateral.component';
 import { JornadaComponent } from './jornada/jornada.component';
 import { HorarioComponent } from './horario/horario.component';
 import { FichajeComponent } from './fichaje/fichaje.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { FichajeComponent } from './fichaje/fichaje.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
