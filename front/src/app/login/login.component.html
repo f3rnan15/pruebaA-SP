@@ -1,6 +1,6 @@
 <div class="login-container">
   <h2>Iniciar Sesión</h2>
-  <form>
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
     <div class="form-group">
       <label for="email">Correo electrónico</label>
       <input
@@ -9,6 +9,7 @@
         name="email"
         ngModel
         placeholder="tucorreo@ejemplo.com"
+        formControlName="email"
       />
     </div>
 
@@ -20,9 +21,9 @@
         name="password"
         ngModel
         placeholder="••••••••"
+        formControlName="password"
       />
     </div>
-
-    <button type="submit" (click)="entrada()">Entrar</button>
+    <button type="submit" type="submit">Entrar</button>
   </form>
 </div>
