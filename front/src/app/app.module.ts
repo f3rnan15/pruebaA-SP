@@ -23,14 +23,14 @@ import { CalendarioComponent } from './calendario/calendario.component';
     JornadaComponent,
     HorarioComponent,
     FichajeComponent,
-    IncidenciaComponent
+    IncidenciaComponent,
     CalendarioComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot([]),
-    FormsModule
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule
   ],
