@@ -6,6 +6,6 @@ export const environment = {
 };
 
 export const headers = new HttpHeaders({
-  'Authorization': 'Basic ' + btoa('string:string')
+  'Authorization': 'Basic ' + btoa('ana.garcia@example.com:hash1')
 });
 

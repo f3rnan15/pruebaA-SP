@@ -41,7 +41,9 @@ body, html {
   user-select: none;
   text-align: center;
   color: #ffffff;
+  /*
   position: absolute; 
+  */
   left: 20px;
   top: 20px;
   z-index: 10;
@@ -138,3 +140,24 @@ app-fichaje {
     padding: 20px;
   }
 }
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  background-color: #1e40af;
+  border-radius: 15px;
+  font-size: 1rem;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.user-info i {
+  font-size: 1.5rem;
+}
+
+.sidebar.collapsed .user-info span {
+  display: none;
+}
+
