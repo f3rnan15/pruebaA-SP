@@ -3,10 +3,10 @@
         <h1>Mi jornada</h1>
         <div class="actions">
             <button class="btn-action add-incident">Añadir incidencia *</button>
-            <span *ngIf="trabajando">
+            <span *ngIf="working">
                 <button class="btn-action clock-out" (click)="ficharSalida()">Fichar salida</button>
             </span>
-            <span *ngIf="!trabajando">
+            <span *ngIf="!working">
                 <button class="btn-action clock-out" (click)="ficharEntrada()">Fichar entrada</button>
             </span>
         </div>
@@ -14,9 +14,17 @@
 
     <div class="prinp">
 
+        <div class="caldiv">
+            <input class="cal" type="date" [(ngModel)]="selectedDate" (change)="refrescarDatos()" />
+        </div>
+        
         <div class="date">
-            <p class="date-text">jueves 24 jul.</p>
-            <p class="total-time">5h 14min</p>
+            <button class="btna" (click)="changeDays(-1)">&lt;</button>
+            <div class="date-center">
+                <p class="date-text">{{visualSelectedDate}}</p>
+                <p class="total-time">{{workingHours}}</p>
+            </div>
+            <button class="btnb" (click)="changeDays(1)">&gt;</button>
         </div>
 
         <table class="schedule-table">
@@ -32,18 +40,40 @@
             </thead>
             <tbody>
                 <tr *ngFor="let fichaje of fichajes">
-                    <td>{{ fichaje.entrada }}</td>
-                    <td>{{ fichaje.lugarEntrada }}</td>
-                    <td>{{ fichaje.salida || '—' }}</td>
-                    <td>{{ fichaje.lugarSalida || '—' }}</td>
-                    <td>{{ fichaje.ausencia }}</td>
-                    <td><button>✏️</button></td>
+                        <td *ngIf="!fichaje.incidencia">{{ fichaje.entradaHora }}</td>
+                        <td *ngIf="fichaje.incidencia">
+                            <input class="inputIncidencias" type="date" [(ngModel)]="fichaje.entradaFecha">
+                            <br>
+                            <input class="inputIncidencias" type="time" [(ngModel)]="fichaje.entradaHora">
+                        </td>
+
+                        <td *ngIf="!fichaje.incidencia">{{ fichaje.lugarEntrada }}</td>
+                        <td *ngIf="fichaje.incidencia">Oficina</td>
+
+                        <td *ngIf="!fichaje.incidencia">{{ fichaje.salidaHora || '—' }}</td>
+                        <td *ngIf="fichaje.incidencia">
+                            <input class="inputIncidencias" type="date" [(ngModel)]="fichaje.salidaFecha">
+                            <br>
+                            <input class="inputIncidencias" type="time" [(ngModel)]="fichaje.salidaHora">
+                        </td>
+
+                        <td *ngIf="!fichaje.incidencia">{{ fichaje.lugarSalida || '—' }}</td>
+                        <td *ngIf="fichaje.incidencia">Oficina</td>
+
+                        <td *ngIf="!fichaje.incidencia">{{ fichaje.ausencia }}</td>
+
+                        <td *ngIf="!fichaje.incidencia"><button (click)="fichaje.incidencia=true">✏️</button></td>
+                        <td *ngIf="fichaje.incidencia">
+                            <button (click)="guardarIncidencia(fichaje.id_entrada,fichaje.id_salida,fichaje.entradaFecha,
+                            fichaje.entradaHora,fichaje.salidaFecha,fichaje.salidaHora)">💾</button>
+                            <button (click)="salirIncidencia(fichaje.incidencia)">❌</button>
+                        </td>
                 </tr>
             </tbody>
         </table>
 
         <div class="cont-ref">
-            <button class="btn">Refrescar datos</button>
+            <button class="btn" (click)="refrescarDatos()">Refrescar datos</button>
         </div>
     </div>
 

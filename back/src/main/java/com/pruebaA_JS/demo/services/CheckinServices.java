@@ -1,20 +1,23 @@
 package com.pruebaA_JS.demo.services;
 
-import java.sql.Date;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
+import java.time.ZoneId;
 
 import com.pruebaA_JS.demo.entities.Users;
 import com.pruebaA_JS.demo.repository.UsersRepository;
+import org.hibernate.cfg.SchemaToolingSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pruebaA_JS.demo.entities.Checkin;
 import com.pruebaA_JS.demo.repository.CheckinRepository;
+import com.pruebaA_JS.demo.dtos.CheckinUpdateDTO;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -57,12 +60,25 @@ public class CheckinServices {
 		return checkinRepository.findByTimestampBetween(startOfDay, endOfDay);
 	}
 
-	public Optional<Checkin> updateCheckin(Long id, Checkin updatedCheckin) {
-		return checkinRepository.findById(id).map(existing -> {
-			existing.setTimestamp(updatedCheckin.getTimestamp());
-			existing.setInside(updatedCheckin.isInside());
-			return checkinRepository.save(existing);
-		});
+	public Optional<Checkin> updateCheckin(Long id, CheckinUpdateDTO updateDTO) {
+		Optional<Checkin> optional = checkinRepository.findById(id);
+		if (!optional.isPresent()) {
+			return Optional.empty();
+		}
+
+		Checkin checkin = optional.get();
+
+		try {
+			System.out.println("timestamp class: " + updateDTO.getTimestamp().getClass().getName());
+			LocalDateTime localDateTime = LocalDateTime.parse(updateDTO.getTimestamp());
+			checkin.setTimestamp(localDateTime);
+		} catch (DateTimeParseException e) {
+			throw new IllegalArgumentException("Formato de fecha inválido. Usa el formato ISO-8601: yyyy-MM-dd'T'HH:mm:ss");
+		}
+
+		checkin.setInside(updateDTO.isInside());
+		checkinRepository.save(checkin);
+		return Optional.of(checkin);
 	}
 
 

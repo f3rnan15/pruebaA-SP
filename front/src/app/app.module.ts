@@ -8,6 +8,10 @@ import { LateralComponent } from './lateral/lateral.component';
 import { JornadaComponent } from './jornada/jornada.component';
 import { HorarioComponent } from './horario/horario.component';
 import { FichajeComponent } from './fichaje/fichaje.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { IncidenciaComponent } from './incidencia/incidencia.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,11 +20,15 @@ import { FichajeComponent } from './fichaje/fichaje.component';
     LateralComponent,
     JornadaComponent,
     HorarioComponent,
-    FichajeComponent
+    FichajeComponent,
+    IncidenciaComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule.forRoot([]),
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
