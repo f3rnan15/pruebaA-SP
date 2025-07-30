@@ -1,0 +1,35 @@
+<div class="container">
+    <header>
+        <h1>Horario</h1>
+        
+    </header>
+
+    <div class="prinp">
+
+        <table class="schedule-table">
+            <thead>
+                <tr>
+                    <th>TIPO</th>
+                    <th>FECHA INICIO</th>
+                    <th>FECHA FIN</th>
+                    <th>ACTIVO</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let horario of horarios" (click)="onHorarioClick(horario)">
+                    <td>{{ horario.description}}</td>
+                    <td>{{ horario.startDate }}</td>
+                    <td>{{ horario.endDate }}</td>
+                    <td>
+                    <span
+                        class="circle" 
+                        [ngClass]="horario.enabled ? 'green' : 'red'">
+                    </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+  
+</div>
