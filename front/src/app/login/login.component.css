@@ -52,3 +52,14 @@ button:disabled {
 button:hover:not(:disabled) {
   background-color: #005fa3;
 }
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem; /* Ajusta la separación entre botones */
+}
+
+.button-group button {
+  width: 100%; /* Ocupa el mismo espacio */
+}
+

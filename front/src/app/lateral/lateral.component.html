@@ -1,6 +1,11 @@
 <div class="main-container">
   <div class="sidebar" [class.collapsed]="isCollapsed">
+
     <div class="toggle-btn" (click)="toggleSidebar()">☰</div>
+    <div class="user-info" *ngIf="userLogged()">
+      <i class="fas fa-user-circle"></i>
+      <span *ngIf="!isCollapsed">{{ userName }}</span>
+    </div>
     <nav class="menu">
       <a (click)="setSection('jornada')" [class.active]="activeSection === 'jornada'">
         <i class="fas fa-calendar-day"></i>
@@ -15,12 +20,22 @@
         <span *ngIf="!isCollapsed">Fichaje</span>
       </a>
     </nav>
+    <button (click)="comprobar()">comprobar</button>
   </div>
 
   <section class="content">
     <app-jornada *ngIf="activeSection === 'jornada'"></app-jornada>
-    <app-horario *ngIf="activeSection === 'horario'"></app-horario>
+    <app-horario 
+      (irACalendario)="setCalendarioDesdeHorario($event)" 
+      *ngIf="activeSection === 'horario'">
+    </app-horario> 
+    <app-calendario 
+      [temporada]="selectedSeason" 
+      *ngIf="activeSection === 'calendario'">
+    </app-calendario>
+
     <app-fichaje *ngIf="activeSection === 'fichaje'"></app-fichaje>
+
   </section>
 </div>
 

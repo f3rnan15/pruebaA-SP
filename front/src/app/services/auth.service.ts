@@ -1,0 +1,27 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Users } from 'src/assets/user';
+import { environment, headers } from '../enviroments/enviroments';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+
+  public loggedUser!: Users;
+
+  constructor(private http: HttpClient) {}
+
+  public getUser(email: string): Observable<Users> {
+    return this.http.get<Users>(`${environment.backendHost}/users/${email}`, { headers });
+  }
+
+  public registerUser(user: Users): Observable<Users>{
+    console.log(user);
+    return this.http.post<Users>(`${environment.backendHost}/users/new`, user);
+  }
+
+}
+
+
