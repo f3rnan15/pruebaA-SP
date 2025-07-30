@@ -8,6 +8,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class LateralComponent {
   
+  userName: string="";
     
   selectedSeason: 'invierno' | 'verano' | null = null;
 
