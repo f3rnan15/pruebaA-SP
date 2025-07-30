@@ -10,6 +10,7 @@ import { HorarioComponent } from './horario/horario.component';
 import { FichajeComponent } from './fichaje/fichaje.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { CalendarioComponent } from './calendario/calendario.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
     LateralComponent,
     JornadaComponent,
     HorarioComponent,
-    FichajeComponent
+    FichajeComponent,
+    CalendarioComponent
   ],
   imports: [
     BrowserModule,

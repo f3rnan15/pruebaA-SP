@@ -7,13 +7,22 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./lateral.component.css']
 })
 export class LateralComponent {
+  
+    
+  selectedSeason: 'invierno' | 'verano' | null = null;
+
+  setCalendarioDesdeHorario(season: 'invierno' | 'verano') {
+    this.selectedSeason = season;
+    this.setSection('calendario');
+  }
+
 
   isCollapsed = false;
-  activeSection: 'jornada' | 'horario' | 'fichaje' = 'jornada';
+  activeSection: 'calendario'| 'jornada' | 'horario' | 'fichaje' = 'jornada';
 
   constructor(private authService: AuthService) {}
 
-  setSection(section: 'jornada' | 'horario' | 'fichaje'){
+  setSection(section: 'calendario'|'jornada' | 'horario' | 'fichaje'){
     this.activeSection = section;
   }
 
