@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.pruebaA_JS.demo.entities.Checkin;
 import com.pruebaA_JS.demo.services.CheckinServices;
+import com.pruebaA_JS.demo.dtos.CheckinUpdateDTO;
 
 @RestController
 @RequestMapping("/checkin")
@@ -74,8 +74,8 @@ public class CheckinController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Checkin> updateCheckin(@PathVariable Long id, @RequestBody Checkin updatedCheckin) {
-		return checkinService.updateCheckin(id, updatedCheckin)
+	public ResponseEntity<Checkin> updateCheckin(@PathVariable Long id, @RequestBody CheckinUpdateDTO dto) {
+		return checkinService.updateCheckin(id, dto)
 				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build());
 	}
