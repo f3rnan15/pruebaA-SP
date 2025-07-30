@@ -17,6 +17,11 @@ export class AuthService {
     return this.http.get<Users>(`${environment.backendHost}/users/${email}`, { headers });
   }
 
+  public registerUser(user: Users): Observable<Users>{
+    console.log(user);
+    return this.http.post<Users>(`${environment.backendHost}/users/new`, user);
+  }
+
 }
 
 

@@ -18,6 +18,7 @@ export class LateralComponent {
 
 
   isCollapsed = false;
+
   activeSection: 'calendario'| 'jornada' | 'horario' | 'fichaje' = 'jornada';
 
   constructor(private authService: AuthService) {}
@@ -30,4 +31,16 @@ export class LateralComponent {
     this.isCollapsed = !this.isCollapsed;
   }
 
+  comprobar() {
+    console.log(this.authService.loggedUser);
+  }
+
+  userLogged():boolean {
+    if(this.authService.loggedUser.firstName == undefined){
+      return false;
+    } else {
+      this.userName=this.authService.loggedUser.firstName;
+      return true;
+    }
+  }
 }

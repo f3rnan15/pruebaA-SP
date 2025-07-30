@@ -18,9 +18,14 @@ public class UsersController {
     private UsersService usersService;
 
     @PostMapping("/new")
-    public void registerUser(@ModelAttribute Users user) {
+    public Users registerUser(@RequestBody Users user) {
+        System.out.println(user.getFirstName());
+        System.out.println(user.getLastName());
+        System.out.println(user.getEmail());
+        System.out.println(user.getUserPassword());
         try{
             usersService.addUser(user);
+            return user;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
