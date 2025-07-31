@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { LateralComponent } from './lateral/lateral.component';
-import { JornadaComponent } from './jornada/jornada.component';
+import { JornadaComponent } from 'src/app/jornada/jornada.component';
 import { HorarioComponent } from './horario/horario.component';
 import { FichajeComponent } from './fichaje/fichaje.component';
 import { RouterModule } from '@angular/router';

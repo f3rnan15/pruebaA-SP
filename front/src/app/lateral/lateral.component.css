@@ -41,9 +41,7 @@ body, html {
   user-select: none;
   text-align: center;
   color: #ffffff;
-  /*
   position: absolute; 
-  */
   left: 20px;
   top: 20px;
   z-index: 10;
@@ -53,7 +51,7 @@ body, html {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin-top: 60px;
+  margin-top: 10px;
 }
 
 .menu a {
@@ -151,6 +149,7 @@ app-fichaje {
   font-size: 1rem;
   color: white;
   transition: all 0.3s ease;
+  margin-top: 40px;
 }
 
 .user-info i {

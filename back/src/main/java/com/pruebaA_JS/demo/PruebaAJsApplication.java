@@ -21,7 +21,7 @@ public class PruebaAJsApplication {
 				admin.setEmail("admin@example.com");
 				admin.setFirstName("admin");
 				admin.setLastName("admin");
-				admin.setUserPassword("admin"); // idealmente encriptado
+				admin.setUserPassword("admin");
 				usersRepository.save(admin);
 			}
 		};

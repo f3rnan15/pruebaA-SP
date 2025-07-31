@@ -20,7 +20,7 @@
         <span *ngIf="!isCollapsed">Fichaje</span>
       </a>
     </nav>
-    <button (click)="comprobar()">comprobar</button>
+    <!-- <button (click)="comprobar()">comprobar</button> -->
   </div>
 
   <section class="content">
@@ -28,7 +28,7 @@
     <app-horario 
       (irACalendario)="setCalendarioDesdeHorario($event)" 
       *ngIf="activeSection === 'horario'">
-    </app-horario> 
+    </app-horario>
     <app-calendario 
       [temporada]="selectedSeason" 
       *ngIf="activeSection === 'calendario'">
