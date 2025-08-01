@@ -6,9 +6,11 @@ import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 
+import com.pruebaA_JS.demo.entities.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,22 +31,20 @@ public class CheckinController {
 
 
 	@PostMapping("/new")
-	public ResponseEntity<Checkin> createCheckin() throws Exception {
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		Checkin checkin = checkinService.createCheckin(username);
+	public ResponseEntity<Checkin> createCheckin(@RequestParam Long userId) throws Exception {
+		Checkin checkin = checkinService.createCheckin(userId);
 		return ResponseEntity.ok(checkin);
-
 	}
 
 	@GetMapping("/daysCheckins")
-	public ResponseEntity<List<Checkin>> getCheckinsByDate(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-		List<Checkin> checkins = checkinService.getCheckinsByDate(date);
+	public ResponseEntity<List<Checkin>> getCheckinsByDate(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, Long userId) {
+		List<Checkin> checkins = checkinService.getCheckinsByDate(date,userId);
 		return ResponseEntity.ok(checkins);
 	}
 
 	@GetMapping("/active-time")
-	public String getActiveTimeByDate(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-		List<Checkin> checkins = checkinService.getCheckinsByDate(date); // Consulta filtrada por fecha
+	public String getActiveTimeByDate(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, Long userId) {
+		List<Checkin> checkins = checkinService.getCheckinsByDate(date, userId); // Consulta filtrada por fecha
 		checkins.sort(Comparator.comparing(Checkin::getTimestamp));
 
 		Duration totalDuration = Duration.ZERO;

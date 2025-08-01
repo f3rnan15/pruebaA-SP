@@ -24,8 +24,8 @@ public class Checkin {
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference
-
     private Users user;
+
     private LocalDateTime timestamp;
     private boolean isInside;
 

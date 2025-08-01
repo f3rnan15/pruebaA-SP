@@ -32,8 +32,8 @@ public class CheckinServices {
 
 
 
-	public Checkin createCheckin(String username) throws Exception {
-		Users user = userRepository.findByEmail(username)
+	public Checkin createCheckin(Long userId) throws Exception {
+		Users user = userRepository.findByUserId(userId)
 				.orElseThrow(() -> new Exception("Usuario no encontrado"));
 
 
@@ -54,10 +54,10 @@ public class CheckinServices {
 		return checkinRepository.save(checkin);
 	}
 
-	public List<Checkin> getCheckinsByDate(LocalDate date) {
+	public List<Checkin> getCheckinsByDate(LocalDate date, Long userId) {
 		LocalDateTime startOfDay = date.atStartOfDay();
 		LocalDateTime endOfDay = date.atTime(LocalTime.MAX);
-		return checkinRepository.findByTimestampBetween(startOfDay, endOfDay);
+		return checkinRepository.findCheckins(userId,startOfDay, endOfDay);
 	}
 
 	public Optional<Checkin> updateCheckin(Long id, CheckinUpdateDTO updateDTO) {

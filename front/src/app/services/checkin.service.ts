@@ -28,12 +28,12 @@ export class Checkin_Service {
 
   constructor(private http: HttpClient) {}
 
-  createCheck(): Observable<Check> { // post
-    return this.http.post<Check>(this.postUrl, null)
+  createCheck(userId: number): Observable<Check> { // post
+    return this.http.post<Check>(this.postUrl, userId)
   }
 
-  getChecks(date: string) :Observable<Check[]> {
-    const params = new HttpParams().set('date', date)
+  getChecks(date: string, userId: number) :Observable<Check[]> {
+    const params = new HttpParams().set('date', date).set('userId',userId)
     return this.http.get<Check[]>(this.getUrl, { params })
   }
 
