@@ -24,15 +24,17 @@ export interface Check {
   providedIn: 'root'
 })
 export class Checkin_Service {
+  private postUrl = '/checkin/new';
+  private getUrl = '/checkin/daysCheckins'
 
   constructor(private http: HttpClient) {}
 
-  createCheck(): Observable<Check> { // post
-    return this.http.post<Check>(`${environment.backendHost}/checkin/new`, null)
+  createCheck(userId: number): Observable<Check> { // post
+    return this.http.post<Check>(`${environment.backendHost}/checkin/new`, userId)
   }
 
-  getChecks(date: string) :Observable<Check[]> {
-    const params = new HttpParams().set('date', date);
+  getChecks(date: string, userId: number) :Observable<Check[]> {
+    const params = new HttpParams().set('date', date).set('userId',userId);
     let headers = new HttpHeaders().set('Authorization', localStorage.getItem('token')!);
     return this.http.get<Check[]>(`${environment.backendHost}/checkin/daysCheckin`, { params, headers });
   }

@@ -1,5 +1,5 @@
 import { Component, numberAttribute } from '@angular/core';
-import { Check, Checkin_Service } from 'src/app/checkin.service';
+import { Check, Checkin_Service } from '../services/checkin.service';
 import { TmplAstDeferredBlockLoading } from '@angular/compiler';
 
 @Component({
