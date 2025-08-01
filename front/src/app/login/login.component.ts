@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { Users } from 'src/assets/user';
+import { AuthRequest } from 'src/assets/authRequest';
 
 @Component({
   selector: 'app-login',
@@ -34,9 +35,13 @@ export class LoginComponent implements OnInit{
   }
 
   login():void {
-    this.authService.getUser(this.loginForm.get('email')?.value).subscribe({
+    let authRequest: AuthRequest = {
+      email: this.loginForm.get('email')?.value,
+      password: this.loginForm.get('password')?.value
+    };
+    this.authService.login(authRequest).subscribe({
       next: (data) =>{
-        this.authService.loggedUser=data;
+        localStorage.setItem('token', data.token);
         this.router.navigate(['lateral']); 
       } ,
       error: (err) => console.error('Usuario no encontrado', err)
@@ -52,7 +57,7 @@ export class LoginComponent implements OnInit{
     };
     this.authService.registerUser(user).subscribe({
       next: (user) =>{
-        this.authService.loggedUser=user;
+        this.authService.setloggedUser(user);
         this.router.navigate(['lateral']); 
       } ,
       error: (err) => console.error('Usuario no encontrado', err)
