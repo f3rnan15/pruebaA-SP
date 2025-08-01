@@ -1,0 +1,124 @@
+openapi: 3.0.1
+info:
+  title: Checkin API
+  version: 1.0.0
+paths:
+  /checkin/new:
+    post:
+      summary: Crear un nuevo checkin
+      operationId: createCheckin
+      responses:
+        '200':
+          description: Checkin creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckinDTO'
+
+  /checkin/daysCheckins:
+    get:
+      summary: Obtener checkins por fecha
+      operationId: getCheckinsByDate
+      parameters:
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Lista de checkins
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CheckinDTO'
+
+  /checkin/active-time:
+    get:
+      summary: Obtener tiempo activo por fecha
+      operationId: getActiveTimeByDate
+      parameters:
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Tiempo activo en formato HH:mm:ss
+          content:
+            text/plain:
+              schema:
+                type: string
+
+  /checkin/{id}:
+    put:
+      summary: Actualizar un checkin
+      operationId: updateCheckin
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckinDTO'
+      responses:
+        '200':
+          description: Checkin actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckinDTO'
+        '404':
+          description: Checkin no encontrado
+
+components:
+  schemas:
+    CheckinDTO:
+      type: object
+      properties:
+        id:
+          type: long
+        timestamp:
+          type: string
+          format: date-time
+          x-java-type: java.time.LocalDateTime
+
+        inside:
+          type: boolean
+        user:
+          $ref: '#/components/schemas/UsersDTO'
+
+    UsersDTO:
+      type: object
+      properties:
+        id:
+          type: long
+        firstName:
+          type: string
+        email:
+          type: string
+
+    ScheduleDTO:
+      type: object
+      properties:
+        id:
+          type: long
+        startTime:
+          type: string
+          format: date-time
+          x-java-type: java.time.LocalDateTime
+        endTime:
+          type: string
+          format: date-time
+          x-java-type: java.time.LocalDateTime
+

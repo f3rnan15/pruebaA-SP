@@ -3,10 +3,13 @@ package com.pruebaA_JS.demo.controllers;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import com.example.api.DefaultApi;
+import com.example.model.CheckinDTO;
+import com.pruebaA_JS.demo.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +21,7 @@ import com.pruebaA_JS.demo.services.CheckinServices;
 
 @RestController
 @RequestMapping("/checkin")
-public class CheckinController {
+public class CheckinController implements DefaultApi {
 
 	@Autowired
 	private CheckinServices checkinService;
@@ -28,22 +31,31 @@ public class CheckinController {
 
 
 
-	@PostMapping("/new")
-	public ResponseEntity<Checkin> createCheckin() throws Exception {
+
+	@Override
+	public ResponseEntity<CheckinDTO> createCheckin() throws Exception {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		Checkin checkin = checkinService.createCheckin(username);
-		return ResponseEntity.ok(checkin);
 
+		CheckinDTO dto = new CheckinDTO();
+		dto.setId(checkin.getCheckId());
+		dto.setTimestamp(OffsetDateTime.from(checkin.getTimestamp()));
+		dto.setInside(checkin.isInside());
+		dto.setUser(UserMapper.toDto(checkin.getUser()));
+
+
+		return ResponseEntity.ok(dto);
 	}
 
-	@GetMapping("/daysCheckins")
-	public ResponseEntity<List<Checkin>> getCheckinsByDate(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+
+	@Override
+	public ResponseEntity<List<CheckinDTO>> getCheckinsByDate(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
 		List<Checkin> checkins = checkinService.getCheckinsByDate(date);
+
 		return ResponseEntity.ok(checkins);
 	}
 
-	@GetMapping("/active-time")
-	public String getActiveTimeByDate(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+	public ResponseEntity<String> getActiveTimeByDate(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
 		List<Checkin> checkins = checkinService.getCheckinsByDate(date); // Consulta filtrada por fecha
 		checkins.sort(Comparator.comparing(Checkin::getTimestamp));
 
@@ -70,7 +82,7 @@ public class CheckinController {
 		long minutes = totalDuration.toMinutes() % 60;
 		long seconds = totalDuration.getSeconds() % 60;
 
-		return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+		return ResponseEntity.ok(String.format("%02d:%02d:%02d", hours, minutes, seconds));
 	}
 
 	@PutMapping("/{id}")
