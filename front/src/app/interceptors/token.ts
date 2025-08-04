@@ -4,9 +4,9 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): 
+  Observable<HttpEvent<any>> {
     const token = localStorage.getItem('token');
-
     if (token) {
       const cloned = req.clone({
         setHeaders: {

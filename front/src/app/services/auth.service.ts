@@ -34,9 +34,8 @@ export class AuthService {
     return this.http.post<AuthResponse>(`${environment.backendHost}/users/login`, authRequest);
   }
 
-  public registerUser(user: Users): Observable<Users>{
-    console.log(user);
-    return this.http.post<Users>(`${environment.backendHost}/users/new`, user);
+  public registerUser(user: Users): Observable<AuthResponse>{
+    return this.http.post<AuthResponse>(`${environment.backendHost}/users/register`, user);
   }
 
   public getDecodedToken(): DecodedToken | null {
@@ -50,7 +49,6 @@ export class AuthService {
       return null;
     }
   }
-
 
 }
 

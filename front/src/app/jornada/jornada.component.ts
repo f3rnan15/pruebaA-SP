@@ -1,6 +1,7 @@
 import { Component, numberAttribute } from '@angular/core';
 import { Check, Checkin_Service } from '../services/checkin.service';
 import { TmplAstDeferredBlockLoading } from '@angular/compiler';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-jornada',
@@ -21,6 +22,8 @@ export class JornadaComponent {
 
   visualSelectedDate!: string
 
+  userId!:number;
+
   fichajes: {
     id_entrada: number;
     id_salida: number | null;
@@ -35,7 +38,7 @@ export class JornadaComponent {
   }[] = [];
 
   ficharEntrada(): void {
-    this.Checkin_Service.createCheck().subscribe({
+    this.Checkin_Service.createCheck(1).subscribe({
       next: (check) => {
         console.log('Fichaje recibido del backend:', check);
         console.log('working: ', check.inside)
@@ -60,7 +63,7 @@ export class JornadaComponent {
   }
 
   ficharSalida(): void {
-    this.Checkin_Service.createCheck().subscribe({
+    this.Checkin_Service.createCheck(1).subscribe({
       next: (check) => {
         console.log('working: ', check.inside)
         const ultimo = this.fichajes[this.fichajes.length - 1];
@@ -77,7 +80,7 @@ export class JornadaComponent {
 
   refrescarDatos(): void {
 
-    this.Checkin_Service.getChecks(this.selectedDate).subscribe({
+    this.Checkin_Service.getChecks(this.selectedDate, this.userId).subscribe({
       next: (checks) => {
         console.log('Fichajes obtenidos del backend:', checks);
 
@@ -139,6 +142,11 @@ export class JornadaComponent {
   }
 
   ngOnInit() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decoded: any = jwtDecode(token);
+      this.userId = Number(decoded.jti);
+    }
     this.refrescarDatos()
   }
 

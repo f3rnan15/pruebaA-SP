@@ -13,7 +13,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -35,13 +34,8 @@ public class UsersController {
     @Autowired
     private MyUserDetailsService userDetailsService;
 
-
     @PostMapping("/new")
     public Users registerUser(@RequestBody Users user) {
-        System.out.println(user.getFirstName());
-        System.out.println(user.getLastName());
-        System.out.println(user.getEmail());
-        System.out.println(user.getUserPassword());
         try{
             usersService.addUser(user);
             return user;
@@ -69,7 +63,6 @@ public class UsersController {
         return usersService.getUserWithEmail(email);
     }
 
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
         try {
@@ -79,12 +72,26 @@ public class UsersController {
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas");
         }
+        Optional<Users> user = usersService.getUserWithEmail(authRequest.getEmail());
 
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getEmail());
-        final String jwt = jwtUtil.generateToken(userDetails.getUsername());
+        String email = user.map(Users::getEmail).orElse("Email no disponible");
+        Long id = user.map(Users::getUserId).orElse((long) -1);
+
+        final String jwt = jwtUtil.generateToken(email, id);
 
         return ResponseEntity.ok(new AuthResponse(jwt));
     }
 
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody Users user) {
+        try{
+            usersService.addUser(user);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        final String jwt = jwtUtil.generateToken(user.getEmail(), user.getUserId());
+
+        return ResponseEntity.ok(new AuthResponse(jwt));
+    }
 
 }

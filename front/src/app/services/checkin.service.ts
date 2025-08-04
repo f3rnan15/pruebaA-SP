@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
-import { environment } from './enviroments/enviroments';
+import { environment } from '../enviroments/enviroments';
 
 export interface User {
   userId: number;
@@ -35,8 +35,7 @@ export class Checkin_Service {
 
   getChecks(date: string, userId: number) :Observable<Check[]> {
     const params = new HttpParams().set('date', date).set('userId',userId);
-    let headers = new HttpHeaders().set('Authorization', localStorage.getItem('token')!);
-    return this.http.get<Check[]>(`${environment.backendHost}/checkin/daysCheckin`, { params, headers });
+    return this.http.get<Check[]>(`${environment.backendHost}/checkin/daysCheckins`, { params });
   }
 
   putChecks(id: string, date: string, inside: boolean){

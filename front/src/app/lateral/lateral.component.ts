@@ -26,7 +26,6 @@ export class LateralComponent {
     }
   }
 
-
   setSection(section: 'calendario'|'jornada' | 'horario' | 'fichaje'){
     this.activeSection = section;
   }

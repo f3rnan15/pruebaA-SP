@@ -32,6 +32,11 @@ export class LoginComponent implements OnInit{
         email: ['', [Validators.required, Validators.email]],
         password: ['', Validators.required]
       });
+      const decoded = this.authService.getDecodedToken();
+      if (decoded && decoded.exp * 1000 < Date.now()) {
+        localStorage.removeItem('token');
+        this.router.navigate(['/login']);
+      }
   }
 
   login():void {
@@ -56,8 +61,8 @@ export class LoginComponent implements OnInit{
       userPassword: this.registerForm.get('password')?.value
     };
     this.authService.registerUser(user).subscribe({
-      next: (user) =>{
-        this.authService.setloggedUser(user);
+      next: (data) =>{
+        localStorage.setItem('token', data.token);
         this.router.navigate(['lateral']); 
       } ,
       error: (err) => console.error('Usuario no encontrado', err)

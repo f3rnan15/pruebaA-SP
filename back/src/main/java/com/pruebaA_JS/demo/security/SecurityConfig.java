@@ -75,6 +75,8 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers(HttpMethod.POST, "/users/login")
                         .permitAll()
+                        .requestMatchers(HttpMethod.GET, "/checkin/daysCheckins")
+                        .permitAll()
                         .requestMatchers(
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
