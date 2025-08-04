@@ -8,15 +8,9 @@ import { AuthService } from '../services/auth.service';
 })
 export class LateralComponent {
   
-  userName: string="";
+  userEmail: string="";
     
   selectedSeason: 'invierno' | 'verano' | null = null;
-
-  setCalendarioDesdeHorario(season: 'invierno' | 'verano') {
-    this.selectedSeason = season;
-    this.setSection('calendario');
-  }
-
 
   isCollapsed = false;
 
@@ -24,24 +18,33 @@ export class LateralComponent {
 
   constructor(private authService: AuthService) {}
 
+  ngOnInit() {
+    const decoded = this.authService.getDecodedToken();
+    if (decoded) {
+      this.userEmail = decoded.sub;
+      // Si has añadido más campos como nombre o rol, también puedes mostrarlos
+    }
+  }
+
   setSection(section: 'calendario'|'jornada' | 'horario' | 'fichaje'){
     this.activeSection = section;
+  }
+
+  setCalendarioDesdeHorario(season: 'invierno' | 'verano') {
+    this.selectedSeason = season;
+    this.setSection('calendario');
   }
 
   toggleSidebar(){
     this.isCollapsed = !this.isCollapsed;
   }
 
-  comprobar() {
-    console.log(this.authService.loggedUser);
-  }
-
   userLogged():boolean {
-    if(this.authService.loggedUser.firstName == undefined){
+    if(this.userEmail == ""){
       return false;
     } else {
-      this.userName=this.authService.loggedUser.firstName;
       return true;
     }
   }
+
 }

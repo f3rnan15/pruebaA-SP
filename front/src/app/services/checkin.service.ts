@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
+import { environment } from '../enviroments/enviroments';
 
 export interface User {
   userId: number;
@@ -28,17 +29,17 @@ export class Checkin_Service {
 
   constructor(private http: HttpClient) {}
 
-  createCheck(): Observable<Check> { // post
-    return this.http.post<Check>(this.postUrl, null)
+  createCheck(userId: number): Observable<Check> { // post
+    return this.http.post<Check>(`${environment.backendHost}/checkin/new`, userId)
   }
 
-  getChecks(date: string) :Observable<Check[]> {
-    const params = new HttpParams().set('date', date)
-    return this.http.get<Check[]>(this.getUrl, { params })
+  getChecks(date: string, userId: number) :Observable<Check[]> {
+    const params = new HttpParams().set('date', date).set('userId',userId);
+    return this.http.get<Check[]>(`${environment.backendHost}/checkin/daysCheckins`, { params });
   }
 
   putChecks(id: string, date: string, inside: boolean){
-    const url = `/checkin/${id}`;
+    const url = `${environment.backendHost}/checkin/${id}`;
     const body = {
       timestamp: date,
       inside: inside

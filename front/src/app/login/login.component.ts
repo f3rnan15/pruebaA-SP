@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { Users } from 'src/assets/user';
+import { AuthRequest } from 'src/assets/authRequest';
 
 @Component({
   selector: 'app-login',
@@ -31,12 +32,21 @@ export class LoginComponent implements OnInit{
         email: ['', [Validators.required, Validators.email]],
         password: ['', Validators.required]
       });
+      const decoded = this.authService.getDecodedToken();
+      if (decoded && decoded.exp * 1000 < Date.now()) {
+        localStorage.removeItem('token');
+        this.router.navigate(['/login']);
+      }
   }
 
   login():void {
-    this.authService.getUser(this.loginForm.get('email')?.value).subscribe({
+    let authRequest: AuthRequest = {
+      email: this.loginForm.get('email')?.value,
+      password: this.loginForm.get('password')?.value
+    };
+    this.authService.login(authRequest).subscribe({
       next: (data) =>{
-        this.authService.loggedUser=data;
+        localStorage.setItem('token', data.token);
         this.router.navigate(['lateral']); 
       } ,
       error: (err) => console.error('Usuario no encontrado', err)
@@ -51,8 +61,8 @@ export class LoginComponent implements OnInit{
       userPassword: this.registerForm.get('password')?.value
     };
     this.authService.registerUser(user).subscribe({
-      next: (user) =>{
-        this.authService.loggedUser=user;
+      next: (data) =>{
+        localStorage.setItem('token', data.token);
         this.router.navigate(['lateral']); 
       } ,
       error: (err) => console.error('Usuario no encontrado', err)

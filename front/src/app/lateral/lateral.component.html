@@ -4,7 +4,7 @@
     <div class="toggle-btn" (click)="toggleSidebar()">☰</div>
     <div class="user-info" *ngIf="userLogged()">
       <i class="fas fa-user-circle"></i>
-      <span *ngIf="!isCollapsed">{{ userName }}</span>
+      <span *ngIf="!isCollapsed">{{ userEmail }}</span>
     </div>
     <nav class="menu">
       <a (click)="setSection('jornada')" [class.active]="activeSection === 'jornada'">
